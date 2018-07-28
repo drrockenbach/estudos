@@ -1,16 +1,6 @@
-var express = require('express');
+var app = require('./config/express')();
 
-var app = express();
-
-app.set('view engine', 'ejs');
-
-app.get('/produtos', function(req, res) {
-
-    // res.send('listagem produtos');
-
-    res.render('produtos/lista');
-
-});
+var rotasProdutos = require('./app/routes/produtos')(app);
 
 app.get('/', function(req, res) {
 
