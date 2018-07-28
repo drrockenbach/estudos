@@ -2,16 +2,24 @@
 
 <body>
     
-    <table>
-<tr>
-    <td>id</td>
-    <td>nome</td>
-</tr>
+    <table border="1px">
+        <tr>
+            <td>id</td>
+            <td>titulo</td>
+            <td>descricao</td>
+            <td>preco</td>
+        </tr>
 
-<tr>
-    <td>1</td>
-    <td>Livro nome jS</td>
-</tr>
+        <%for (var i =0; i < lista.length; i++ ) {%>
+            <tr>
+                <td><%=lista[i].id%></td>
+                <td><%=lista[i].titulo%></td>
+                <td><%=lista[i].descricao%></td>
+                <td><%=lista[i].preco%></td>
+            </tr>
+        <%}%>
+
+        
         
     </table>
 

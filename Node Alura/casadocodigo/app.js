@@ -1,6 +1,7 @@
 var app = require('./config/express')();
 
-var rotasProdutos = require('./app/routes/produtos')(app);
+// não precisa mais carregar as rotas,pois já está sendo tudo carregado dentro do express.js
+//var rotasProdutos = require('./app/routes/produtos')(app);
 
 app.get('/', function(req, res) {
 
