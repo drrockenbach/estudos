@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import Classes from './App.css';
 import Person from './Person/Person';
 import UserOutput from './UserOutput/UserOutput'
 import UserInput from './UserInput/UserInput'
@@ -77,13 +77,7 @@ class App extends Component {
 
   render() {
 
-    const style = {
-      backgroundColor: 'green',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer'
-    };
+    let btnClass = '';
 
     let persons = null;
     
@@ -107,28 +101,28 @@ class App extends Component {
             age={this.state.persons[1].age}></Person> */}
         </div>
       );
-      style.backgroundColor = 'red';
+      btnClass = Classes.Red;
       
     }
 
-    const classes = [];
+    const assignedClasses = [];
 
     if (this.state.persons.length <=2) {
-      classes.push('red'); 
+      assignedClasses.push(Classes.red); 
     }
 
     if (this.state.persons.length <=1) {
-      classes.push('bold'); 
+      assignedClasses.push(Classes.bold); 
     }
 
     return (
-      <div className="App">
+      <div className={Classes.App}>
         <h1>Hi, I'm a React App</h1>
-        <p className={classes.join(' ')}>Dynamic css </p>
+        <p className={assignedClasses.join(' ')}>Dynamic css </p>
         {/* <button style={style}
           onClick={this.switchNameHandler.bind(this, 'Diomar Rockenbach')}>Switch Name</button>  */}
         <div>
-          <button style={style}
+          <button className={btnClass}
             onClick={this.togglePersonsHandler}>Toggle Persons</button>
         </div>
         {persons}
