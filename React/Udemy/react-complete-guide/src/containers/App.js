@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import Classes from './App.css';
-import Person from './Person/Person';
-import UserOutput from './UserOutput/UserOutput'
-import UserInput from './UserInput/UserInput'
-
-import './App.css';
+import Persons from '../components/Persons/Persons';
+import Cookpit from '../components/Cookpit/Cookpit';
 
 class App extends Component {
 
@@ -77,32 +74,14 @@ class App extends Component {
 
   render() {
 
-    let btnClass = '';
-
     let persons = null;
     
     if (this.state.showPersons) {
       persons = (
         <div>
-          {this.state.persons.map((person, index) => {
-
-            return <Person click={() => this.deletePersonHandler(index)}
-                      name={person.name} 
-                      age={person.age} 
-                      key={person.id}
-                      change={(event) => this.nameChangedHandler(event, person.id)}/>
-
-          })}
-          {/* <Person name={this.state.persons[0].name} 
-            change={this.nameChangedHandler}
-            click={this.switchNameHandler.bind(this, 'Diomar Rockenbach')}
-            age={this.state.persons[0].age}>My Hobbies: Racing</Person>
-          <Person name={this.state.persons[1].name} click={this.switchNameHandler.bind(this, 'Diomar Rockenbach')}
-            age={this.state.persons[1].age}></Person> */}
+          <Persons persons={this.state.persons} clicked={this.deletePersonHandler}  changed={this.nameChangedHandler}/>
         </div>
       );
-      btnClass = Classes.Red;
-      
     }
 
     const assignedClasses = [];
@@ -117,14 +96,10 @@ class App extends Component {
 
     return (
       <div className={Classes.App}>
-        <h1>Hi, I'm a React App</h1>
-        <p className={assignedClasses.join(' ')}>Dynamic css </p>
-        {/* <button style={style}
-          onClick={this.switchNameHandler.bind(this, 'Diomar Rockenbach')}>Switch Name</button>  */}
-        <div>
-          <button className={btnClass}
-            onClick={this.togglePersonsHandler}>Toggle Persons</button>
-        </div>
+        <Cookpit showPersons={this.state.showPersons}
+          persons={this.state.persons}
+          clicked={this.togglePersonsHandler}
+          appTitle={this.props.title}/>
         {persons}
       </div>
     );
