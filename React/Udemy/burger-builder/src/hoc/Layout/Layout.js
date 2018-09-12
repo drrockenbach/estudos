@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 
-import AuxHOC from '../../hoc/AuxHOC';
+import AuxHOC from '../AuxHOC/AuxHOC';
 
 import classes from './Layout.css';
-import Toolbar from '../Navigation/Toolbar/Toolbar';
-import SideDrawer from '../Navigation/SideDrawer/SideDrawer';
+import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
+import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
 
 class Layout extends Component {
 
