@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
-
-import classes from './NewPost.css';
 import axios from 'axios';
+
+import './NewPost.css';
+import { Redirect } from 'react-router-dom';
 
 class NewPost extends Component {
     state = {
         title: '',
         content: '',
-        author: 'Max'
+        author: 'Max',
+        submited: false
+    }
+
+    componentDidMount () {
+        console.log(this.props);
     }
 
     postDataHandler = () => {
@@ -16,15 +22,33 @@ class NewPost extends Component {
             body: this.state.content,
             author: this.state.author
         };
-        axios.post('https://jsonplaceholder.typicode.com/posts', data)
-        .then(response => {
-            console.log(response);
-        });
+        axios.post('/posts', data)
+            .then(response => {
+                console.log(response);
+
+                // A diferença do replace e do push abaixo, é que o replace substitui na pilha do histórico de páginas do browser a instância atual,
+                // de forma que se o usuário clicar no botão voltar, não vai voltar para essa página, e sim permanecer na página a qual foi redirecionado. (se clicar duas vezes aí volta)
+                // O push funciona como um redirect, se clicar no botão voltar, volta para a página anterior.
+
+                this.props.history.replace({pathname: '/posts'});
+                // this.props.history.push({pathname: '/posts'});
+
+                // this.setState({submited: true});
+            });
     }
 
     render () {
+        // let redirect = null;
+
+        // if (this.state.submited) {
+        //     redirect = <Redirect to="/posts" />
+        // }
+
         return (
+
+            
             <div className="NewPost">
+                {/* {redirect} */}
                 <h1>Add a Post</h1>
                 <label>Title</label>
                 <input type="text" value={this.state.title} onChange={(event) => this.setState({title: event.target.value})} />

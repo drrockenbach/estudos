@@ -7,21 +7,22 @@ import axios from 'axios';
 
 axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com';
 axios.defaults.headers.common['Authorization'] = 'AUTH TOKEN';
-axios.defaults.headers.post['Content-Type'] = 'application/json'; // Já é o default, é só um exemplo
+axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 axios.interceptors.request.use(request => {
     console.log(request);
+    // Edit request config
     return request;
-}, error => { // Só cai nesse erro se acontecer erro na chamada. Por exemplo se estiver sem internet ou algo assim. 
-              //Erros como 404 ou qualquer error retornado pelo servidor não cai aqui
+}, error => {
     console.log(error);
-    Promise.reject(error);
+    return Promise.reject(error);
 });
 
 axios.interceptors.response.use(response => {
     console.log(response);
+    // Edit request config
     return response;
-}, error => { // Aqui sim da pra tratar os erros retornados pelo server, como 404
+}, error => {
     console.log(error);
     return Promise.reject(error);
 });
