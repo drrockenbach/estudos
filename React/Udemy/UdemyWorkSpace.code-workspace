@@ -14,6 +14,9 @@
 		},
 		{
 			"path": "redux--01-start"
+		},
+		{
+			"path": "redux--assignment-2-problem"
 		}
 	],
 	"settings": {}

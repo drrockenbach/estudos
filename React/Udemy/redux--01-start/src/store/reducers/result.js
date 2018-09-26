@@ -1,7 +1,13 @@
-import * as actionTypes from '../actions';
+import * as actionTypes from '../actions/actionsTypes';
+import {updateObject} from '../utility';
 
 const initialState = {
     results: []
+};
+
+const deleteResult = (state, action) => {
+    const updatedArray = state.results.filter(result => result.id !== action.resultElId);
+    return updateObject(state, {results: updatedArray});
 }
 
 const reducer = (state = initialState, action ) => {
@@ -10,22 +16,11 @@ const reducer = (state = initialState, action ) => {
         case actionTypes.STORE_RESULT:
              // Diferentemente do push que apenas adiciona um novo valor ao array, o concat cria uma nova instância adicionando esse novo valor.
             // Se usar o push, vai estar alterando diretamente o state, o que não deve ser feito
-            return {
-                ...state,
-                results: state.results.concat({id: new Date(), value: action.result})
-            }
+            return updateObject(state, {results: state.results.concat({id: new Date(), value: action.result})});
+           
         case actionTypes.DELETE_RESULT:
-            
-            // const id = 2;
-            // const newArray = [...state.results];
-            // newArray.splice(id, 1);
+            return deleteResult(state, action);
 
-            const updatedArray = state.results.filter(result => result.id !== action.resultElId);
-
-            return {
-                ...state,
-                results: updatedArray
-            }
         default:
             break;
     }

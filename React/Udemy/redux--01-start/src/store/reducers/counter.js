@@ -1,4 +1,5 @@
-import * as actionTypes from '../actions';
+import * as actionTypes from '../actions/actionsTypes';
+import {updateObject} from '../utility';
 
 const initialState = {
     counter: 0
@@ -20,21 +21,14 @@ const reducer = (state = initialState, action ) => {
 
             // Forma simplificada de fazer o mesmo que acima. Aqui vai retornar um objeto com todo o state atual.
             // Ao adicionar uma propriedade que já existe no state anterior, no caso o counter, esse será sobrescrito.
-
-            return {
-                ...state,
-                counter: state.counter - 1
-            }
+            return updateObject(state, {counter: state.counter -1});
+            
         case actionTypes.ADD:
-            return {
-                ...state,
-                counter: state.counter + action.value
-            }
+            return updateObject(state, {counter: state.counter + action.value})
+            
         case actionTypes.SUBTRACT:
-            return {
-                ...state,
-                counter: state.counter - action.value
-            }
+            return updateObject(state, {counter: state.counter - action.value});
+            
         default:
             break;
     }
