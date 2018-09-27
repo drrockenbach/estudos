@@ -4,10 +4,13 @@ import React, { Component } from 'react'
 import Button from '../../../components/UI/Button/Button';
 
 import classes from './ContactData.css';
-import axios from '../../../axios-orders';
+
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Input/Input';
 import {connect} from 'react-redux';
+import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
+import axios from '../../axios-orders';
+import * as actions from '../../../store/actions/index';
 
 class ContactData extends Component {
 
@@ -102,7 +105,7 @@ class ContactData extends Component {
 
         // this.cancelPurchaseHandler();
         
-        this.setState({loading: true});
+        // this.setState({loading: true});
 
         const formData = {};
 
@@ -121,15 +124,17 @@ class ContactData extends Component {
 
         console.log("order ", order);
 
-        axios.post('/orders.json',order)
-        .then(response => {
+        this.props.onOrderBurger(order);
+
+        // axios.post('/orders.json',order)
+        // .then(response => {
             
-            this.setState({loading: false});
-            this.props.history.push('/');
-        })
-        .catch(error => {
-            this.setState({loading: false});
-        })
+        //     this.setState({loading: false});
+        //     this.props.history.push('/');
+        // })
+        // .catch(error => {
+        //     this.setState({loading: false});
+        // })
     }
 
     checkValidity(value, rules) {
@@ -226,6 +231,10 @@ const mapStateToProps = state => {
         ings: state.ingredients,
         price: state.totalPrice
     }
+};
+
+const mapDispatchToProps = dispatch => {
+    onOrderBurger: (orderData) => dispatch(actions.purchaseBurgerStart(orderData))
 }
 
-export default connect(mapStateToProps) (ContactData);
+export default connect(mapStateToProps) (withErrorHandler(ContactData, axios));
