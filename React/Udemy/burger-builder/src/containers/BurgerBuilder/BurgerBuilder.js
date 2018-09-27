@@ -148,6 +148,7 @@ class BurgerBuilder extends Component {
         // });
 
         // Com o redux, não será mais necessário passar os ingredientes por parâmetro
+        this.props.onInitPurchase();
         this.props.history.push('/checkout');
 
     }
@@ -199,15 +200,16 @@ const mapDispatchToProps = dispatch => {
     return {
         onIngredientAdded: (ingName) => dispatch(burberBuilderActions.addIngredient(ingName)),
         onIngredientRemoved: (ingName) => dispatch(burberBuilderActions.removeIngredient(ingName)),
-        onIniIngredients: () => dispatch(burberBuilderActions.initIngredients())
+        onIniIngredients: () => dispatch(burberBuilderActions.initIngredients()),
+        onInitPurchase: () => dispatch(burberBuilderActions.purchaseInit())
     }
 }
 
 const mapStateToProps = state => {
     return {
-        ings: state.ingredients,
-        price: state.totalPrice,
-        error: state.error
+        ings: state.burgerBuilder.ingredients,
+        price: state.burgerBuilder.totalPrice,
+        error: state.burgerBuilder.error
     }
 }
 
