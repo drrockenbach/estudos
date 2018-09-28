@@ -64,7 +64,6 @@ export const fetchOrdersStart = () => {
 
 export const fetchOrders = () => {
     return dispatch => {
-        console.log("[fetchOrders] ");
         dispatch(fetchOrdersStart());
         axios.get('/orders.json')
         .then(res => {
@@ -72,9 +71,6 @@ export const fetchOrders = () => {
             for (let key in res.data) {
                 fetchedOrders.push({...res.data[key], id: key});
             }
-
-            console.log(fetchedOrders);
-
             // this.setState({loading: false, orders: fetchedOrders});
 
             dispatch(fetchOrdersSuccess(fetchedOrders));
