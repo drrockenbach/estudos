@@ -28,6 +28,7 @@ class Orders extends Component {
         // .catch(err => {
         //     this.setState({loading: false});
         // })
+        console.log("[componentWillMount] Orders");
         this.props.onFetchOrders();
     }
 
@@ -46,7 +47,7 @@ class Orders extends Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onFetchOrders: () => dispatch(action.fetchOrders)
+        onFetchOrders: () => dispatch(action.fetchOrders())
     };
 };
 
