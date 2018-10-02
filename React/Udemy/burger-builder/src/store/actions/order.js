@@ -1,14 +1,13 @@
 import * as actionTypes from './actionTypes';
-import order from '../../components/Order/Order';
 import axios from '../../axios-orders';
 
 export const purchaseBurgerSuccess = (id, orderData) => {
     return {
         type: actionTypes.PURCHASE_BURGER_SUCCESS,
         orderId: id,
-        orderData: orderData
+        orderData: orderData 
     };
-};
+}; 
 
 export const purchaseBurgerFail = (error) => {
     return {

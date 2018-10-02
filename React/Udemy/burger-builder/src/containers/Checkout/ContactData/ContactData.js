@@ -11,6 +11,7 @@ import {connect} from 'react-redux';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 import axios from '../../../axios-orders';
 import * as actions from '../../../store/actions/index';
+import { updateObject, checkValidity } from '../../../shared/utility';
 
 class ContactData extends Component {
 
@@ -78,7 +79,8 @@ class ContactData extends Component {
                 },
                 value: '',
                 validation: {
-                    required: true
+                    required: true,
+                    isEmail: true
                 },
                 valid: false,
                 touched: false
@@ -102,18 +104,11 @@ class ContactData extends Component {
     orderHanlder = (event) => {
         event.preventDefault();
 
-        // this.cancelPurchaseHandler();
-        
-        // this.setState({loading: true});
-
         const formData = {};
 
         for (let formElementIdent in this.state.orderForm) {
-            console.log('formElementIdent ', formElementIdent);
             formData[formElementIdent] = this.state.orderForm[formElementIdent].value;
         }
-
-        console.log('formData ',  formData);
 
         const  order = {
             ingredients: this.props.ings,
@@ -122,76 +117,29 @@ class ContactData extends Component {
             userId: this.props.userId
         }
 
-        console.log("order ", order);
-
         this.props.onOrderBurger(order, this.props.token);
 
-        // axios.post('/orders.json',order)
-        // .then(response => {
-            
-        //     this.setState({loading: false});
-        //     this.props.history.push('/');
-        // })
-        // .catch(error => {
-        //     this.setState({loading: false});
-        // })
-    }
-
-    checkValidity(value, rules) {
-        
-        console.log(rules);
-        if (!rules) {
-            return true;
-        }
-
-        let isValid = true;
-
-        if (rules.required && isValid) {
-            isValid = value.trim() !== '';
-        }
-
-        if (rules.minLength && isValid) {
-            isValid = value.length >= rules.minLength;
-        }
-
-        if (rules.maxLength && isValid) {
-            isValid = value.length <= rules.maxLength;
-        }
-
-        if (rules.isEmail) {
-            const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-            isValid = pattern.test(value) && isValid
-        }
-
-        if (rules.isNumeric) {
-            const pattern = /^\d+$/;
-            isValid = pattern.test(value) && isValid
-        }
-
-        return isValid;
     }
 
     inputChangedHandler = (event, inputIdentifier) => {
-        const updatedOrderForm = {
-            ...this.state.orderForm
-        };
+        const updatedFormElement = updateObject(this.state.orderForm[inputIdentifier],
+            {
+                value: event.target.value,
+                valid: checkValidity(event.target.value, this.state.orderForm[inputIdentifier].validation ),
+                touched: true
+            }
+        );
 
-        const updatedFormElement = {
-            ...updatedOrderForm[inputIdentifier]
-        };
-
-        updatedFormElement.value = event.target.value;
-        updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation );
-        updatedFormElement.touched = true;
-        console.log(updatedFormElement);
-        updatedOrderForm[inputIdentifier] = updatedFormElement;
+        const updatedOrderForm = updateObject(this.state.orderForm, {
+            [inputIdentifier]: updatedFormElement
+        });
 
         let formIsValid = true;
 
         for (let identifier in updatedOrderForm) {
             formIsValid = updatedOrderForm[identifier].valid && formIsValid;
         }
-        console.log(formIsValid);
+        
         this.setState({orderForm: updatedOrderForm, formIsValid: formIsValid});
     }
 

@@ -13,8 +13,6 @@ import axios from '../../axios-orders';
 
 import { connect } from 'react-redux';
 
-
-
 class BurgerBuilder extends Component {
 
     state = {
@@ -24,50 +22,7 @@ class BurgerBuilder extends Component {
 
     componentDidMount() {
         this.props.onIniIngredients();
-        // axios.get('/ingredients.json')
-        // .then(response => {
-        //     console.log(response);
-        //     this.setState({ingredients: response.data});
-        // })
-        // .catch( error => {
-        //     console.log(error);
-        //     this.setState({error: true});
-        // })
     }
-
-    // addIngredientHandler = (type) => {
-    //     const oldCount = this.props.ings[type];
-    //     const updatedCount = oldCount + 1;
-    //     const updatedIngredients = {
-    //         ...this.props.ings
-    //     };
-    //     updatedIngredients[type] = updatedCount;
-        
-    //     const newPrice = this.state.totalPrice + INGREDIENT_PRICES[type];
-
-    //     this.setState({totalPrice: newPrice, ingredients: updatedIngredients});
-
-    //     this.updatePurchasable(updatedIngredients);
-    // }
-
-    // removeIngredientHandler = (type) => {
-    //     const oldCount = this.props.ings[type];
-    //     if (oldCount > 0) {
-    //         const newCount = oldCount - 1;
-    //         const updatedIngredients = {
-    //             ...this.props.ings
-    //         }
-
-    //         updatedIngredients[type] = newCount;
-
-    //         const newPrice = this.state.totalPrice - INGREDIENT_PRICES[type];
-
-    //         this.setState({totalPrice: newPrice, ingredients: updatedIngredients});
-    //         this.updatePurchasable(updatedIngredients);
-    //     }
-
-
-    // }
 
     updatePurchasable (ingredients) {
 
@@ -94,6 +49,7 @@ class BurgerBuilder extends Component {
             this.setState({purchasing: true});
         } else {
             this.props.onSetRedirectPath("/checkout")
+            this.props.onInitPurchase();
             this.props.history.push('/auth');
         }
     }
@@ -103,59 +59,8 @@ class BurgerBuilder extends Component {
     }
 
     purchaseContinueHandler = () => {
-        // alert('You continue!');
-        // this.cancelPurchaseHandler();
-        
-        // this.setState({loading: true});
-
-        // const  orders = {
-        //     ingredients: this.props.ings,
-        //     price: this.state.totalPrice,
-        //     customer: {
-        //         name: 'Diomar Rockenbach',
-        //         adress: {
-        //             street:'Street teste',
-        //             zip: '12347891273129',
-        //             country: 'Brasil'
-        //         },
-        //         email:'teste@teste.com'
-        //     },
-        //     deliveryMethod:'fastest'
-        // }
-
-        // axios.post('/orders.json',orders)
-        // .then(response => {
-            
-        //     this.setState({loading: false, purchasing: false});
-        // })
-        // .catch(error => {
-        //     this.setState({loading: false, purchasing: false});
-        // })
-
-        // Lógica para montar query params, caso seja necessário. Não vou apagar para deixar para consulta.
-        // const queryParams = [];
-
-        // for (const i in this.props.ings) {
-        //     queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.props.ings[i]));
-        // }
-
-        // queryParams.push('price=' + encodeURIComponent(this.props.price));
-
-        // console.log(queryParams);
-
-        // const queryString = queryParams.join('&');
-
-        // console.log(queryString);
-
-        // this.props.history.push({
-        //     pathname: '/checkout',
-        //     search: '?'+queryString
-        // });
-
-        // Com o redux, não será mais necessário passar os ingredientes por parâmetro
         this.props.onInitPurchase();
         this.props.history.push('/checkout');
-
     }
 
     render() {
@@ -185,10 +90,6 @@ class BurgerBuilder extends Component {
 
             orderSummary = <OrderSummary price={this.props.price} continue={this.purchaseContinueHandler} cancel={this.cancelPurchaseHandler} ingredients={this.props.ings}/>;
         }
-
-        // if (this.state.loading) {
-        //     orderSummary = <Spinner/>;
-        // }
 
         return (
             <AuxHOC>
