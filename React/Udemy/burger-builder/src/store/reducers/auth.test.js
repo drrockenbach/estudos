@@ -10,7 +10,21 @@ describe('auth reducer', () => {
             error: null,
             loading: false,
             authRedirectPath: '/'
-        })
+        });
     });
 
+    it('should store the token upon login', () => {
+        expect(reducer(null, 
+            {
+                type: actionTypes.AUTH_SUCCESS,
+                idToken: 'some-token',
+                userId: 'some-user-id'
+            })).toEqual({
+                token: 'some-token',
+                userId: 'some-user-id',
+                error: null,
+                loading: false,
+                authRedirectPath: '/'
+            });
+    })
 });
