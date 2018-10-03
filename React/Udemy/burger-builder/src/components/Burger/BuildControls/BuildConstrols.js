@@ -8,7 +8,7 @@ const constrols = [
     {label: 'Bacon', type: 'bacon'},
     {label: 'Meat', type: 'meat'},
     {label: 'Cheese', type: 'cheese'}
-]
+];
 
 const buildConstrols = (props) => (
     <div className={classes.BuildControls}>
@@ -18,7 +18,7 @@ const buildConstrols = (props) => (
                 ingredientAdded={() => props.ingredientAdded(item.type)}
                 ingredientRemoved={() => props.ingredientRemoved(item.type)}
                 disabled={props.disabled[item.type]}
-                />
+                />;
             }
         )}
 

@@ -40,30 +40,30 @@ const purchaseBurguerSuccess = (state, action) => {
     return updateObject(state, {loading: false,
                         orders: state.orders.concat(newOrder),
                         purchased: true});
-}
+};
 
 const fetchOrdersSuccess = (state, action) => {
     return updateObject(state, { orders: action.orders, loading: false });
-}
+};
 
 const fetchOrdersFail = (state) => {
     return updateObject(state, { loading: false });
-}
+};
 
 const purchaseInit = (state) => {
     return updateObject(state, { purchased: false });
-}
+};
 
 const purchaseBurgerStart = (state) => {
     return updateObject(state, { loading: true });
-}
+};
 
 const PurchaseBurguerFail = (state) => {
     return updateObject(state, { loading: false });
-}
+};
 
 const fetchOrdersStart = (state) => {
     return updateObject(state, { loading: true });
-}
+};
 
 export default reducer;

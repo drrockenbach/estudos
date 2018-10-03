@@ -6,7 +6,7 @@ const asyncComponent = (importComponet) => {
 
         state = {
             component: null
-        }
+        };
 
         componentDidMount () {
             importComponet()
@@ -21,8 +21,7 @@ const asyncComponent = (importComponet) => {
             return C ? <C {...this.props} /> : null;
         }
 
-    }
-
-}
+    };
+};
 
 export default asyncComponent;

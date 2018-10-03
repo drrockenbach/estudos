@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import AuxHOC from '../../hoc/AuxHOC/AuxHOC';
 import Burger from '../../components/Burger/Burger';
-import BuilderControls from '../../components/Burger/BuildControls/BuildConstrols'
+import BuilderControls from '../../components/Burger/BuildControls/BuildConstrols';
 import Modal from '../../components/UI/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 
@@ -18,7 +18,7 @@ export class BurgerBuilder extends Component {
     state = {
         purchasing: false,
         loading: false
-    }
+    };
 
     componentDidMount() {
         this.props.onIniIngredients();
@@ -48,7 +48,7 @@ export class BurgerBuilder extends Component {
         if (this.props.isAuthenticated) {
             this.setState({purchasing: true});
         } else {
-            this.props.onSetRedirectPath("/checkout")
+            this.props.onSetRedirectPath("/checkout");
             this.props.onInitPurchase();
             this.props.history.push('/auth');
         }
@@ -67,7 +67,7 @@ export class BurgerBuilder extends Component {
 
         const disableInfo = {
             ...this.props.ings
-        }
+        };
 
         for (let key in disableInfo) {
             disableInfo[key] = disableInfo[key] <= 0;
@@ -75,7 +75,7 @@ export class BurgerBuilder extends Component {
         
         let orderSummary = null;
         
-        let burger =! this.props.error ? <Spinner/> : <p>Ingridients can't be loaded!</p>
+        let burger =! this.props.error ? <Spinner/> : <p>Ingridients can't be loaded!</p>;
         if (this.props.ings) {
             burger = <AuxHOC>
                 <Burger ingredients={this.props.ings}/>
@@ -109,8 +109,8 @@ const mapDispatchToProps = dispatch => {
         onIniIngredients: () => dispatch(burberBuilderActions.initIngredients()),
         onInitPurchase: () => dispatch(burberBuilderActions.purchaseInit()),
         onSetRedirectPath: (path) => dispatch(burberBuilderActions.setAuthRedirectPath(path))
-    }
-}
+    };
+};
 
 const mapStateToProps = state => {
     return {
@@ -118,7 +118,7 @@ const mapStateToProps = state => {
         price: state.burgerBuilder.totalPrice,
         error: state.burgerBuilder.error,
         isAuthenticated: state.auth.token !== null
-    }
-}
+    };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(BurgerBuilder, axios));

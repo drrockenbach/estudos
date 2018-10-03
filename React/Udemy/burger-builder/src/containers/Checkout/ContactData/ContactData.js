@@ -1,5 +1,5 @@
 
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 import Button from '../../../components/UI/Button/Button';
 
@@ -99,7 +99,7 @@ class ContactData extends Component {
             }
         },
         formIsValid: false
-    }
+    };
 
     orderHanlder = (event) => {
         event.preventDefault();
@@ -115,7 +115,7 @@ class ContactData extends Component {
             price: this.props.price,
             orderData: formData,
             userId: this.props.userId
-        }
+        };
 
         this.props.onOrderBurger(order, this.props.token);
 
@@ -179,7 +179,7 @@ class ContactData extends Component {
                 <h4>Enter your contact data</h4>
                 {form}
             </div>
-        )
+        );
     }
 
 }
@@ -191,13 +191,13 @@ const mapStateToProps = state => {
         loading: state.order.loading,
         token: state.auth.token,
         userId: state.auth.userId
-    }
+    };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         onOrderBurger: (orderData, token) => dispatch(actions.purchaseBurger(orderData, token))
-    }
-}
+    };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps) (withErrorHandler(ContactData, axios));

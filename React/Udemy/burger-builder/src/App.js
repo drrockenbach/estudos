@@ -11,13 +11,13 @@ import * as actions from './store/actions/index';
 import asyncComponent from './hoc/asyncComponent/asyncComponent';
 
 const asyncCheckout = asyncComponent(() => {
-  return import('./containers/Checkout/Checkout')
+  return import('./containers/Checkout/Checkout');
 });
 const asyncOrders = asyncComponent(() => {
-  return import('./containers/Orders/Orders')
+  return import('./containers/Orders/Orders');
 });
 const asyncAuth = asyncComponent(() => {
-  return import('./containers/Auth/Auth')
+  return import('./containers/Auth/Auth');
 });
 
 class App extends Component {
@@ -60,18 +60,18 @@ class App extends Component {
       </div>
     );
   }
-};
+}
 
 const mapStateToProps = state => {
   return {
     isAuthenticated: state.auth.token !== null
-  }
-}
+  };
+};
 
 const mapDispatchToProps = dispatch => {
   return {
     onTryAutoSignup: () => dispatch(actions.authCheckState())
-  }
-}
+  };
+};
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

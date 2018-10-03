@@ -21,9 +21,9 @@ class Orders extends Component {
                     price={order.price} />
                 ))}
             </div>
-        )
+        );
     }
-};
+}
 
 const mapDispatchToProps = dispatch => {
     return {
@@ -37,7 +37,7 @@ const mapStateToProps = (state) => {
         loading: state.order.loading,
         token: state.auth.token,
         userId: state.auth.userId
-    }
-}
+    };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(Orders, axios));

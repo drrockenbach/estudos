@@ -20,7 +20,7 @@ export const purchaseBurgerStart = () => {
     return {
         type: actionTypes.PURCHASE_BURGER_START
     };
-}
+};
 
 export const purchaseBurger = (orderData, token) => {
     return dispatch => {
@@ -31,8 +31,8 @@ export const purchaseBurger = (orderData, token) => {
         })
         .catch(error => {
             dispatch(purchaseBurgerFail, error);
-        })
-    }
+        });
+    };
 };
 
 export const purchaseInit = () => {
@@ -78,6 +78,6 @@ export const fetchOrders = (token, userId) => {
         })
         .catch(err => {
             dispatch(fetchOrdersFail(err));
-        })
-    }
-}
+        });
+    };
+};

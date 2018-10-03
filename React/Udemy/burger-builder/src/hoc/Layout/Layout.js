@@ -19,7 +19,9 @@ class Layout extends Component {
     }
 
     sideDrawerToggleHandler = () => {
-        this.setState((prevState) => {return {showSideDrawer: !prevState.showSideDrawer}});
+        this.setState(
+            (prevState) => {return {showSideDrawer: !prevState.showSideDrawer};}
+        );
     }
 
     render() {
@@ -35,14 +37,13 @@ class Layout extends Component {
                 {this.props.children}
             </main>
         </AuxHOC>
-       )
+       );
     }
-};
+}
 
 const mapStateToProps = state => {
     return {
         isAuthenticated: state.auth.token !== null
-    }
-}
-
+    };
+};
 export default connect(mapStateToProps)(Layout);

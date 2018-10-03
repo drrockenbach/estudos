@@ -7,9 +7,9 @@ const orderSummary = (props) => {
 
     const ingredientSummary = Object.keys(props.ingredients).map(
         key => {
-            return <li key={key}> <span style={{textTransform: 'capitalize'}}>{key}</span>: {props.ingredients[key]} </li>
+            return <li key={key}> <span style={{textTransform: 'capitalize'}}>{key}</span>: {props.ingredients[key]} </li>;
         }
-    )
+    );
 
     return (
         <AuxiliarHOC>
@@ -24,7 +24,7 @@ const orderSummary = (props) => {
             <Button btnType='Danger' clicked={props.cancel}>Cancel</Button>
             <Button btnType='Success' clicked={props.continue}>Continue</Button>
         </AuxiliarHOC>
-    )
+    );
 };
 
 export default orderSummary;
