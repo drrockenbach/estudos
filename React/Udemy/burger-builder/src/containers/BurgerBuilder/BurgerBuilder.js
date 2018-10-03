@@ -13,7 +13,7 @@ import axios from '../../axios-orders';
 
 import { connect } from 'react-redux';
 
-class BurgerBuilder extends Component {
+export class BurgerBuilder extends Component {
 
     state = {
         purchasing: false,
