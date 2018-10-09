@@ -15,5 +15,10 @@ export {
     auth,
     logout,
     setAuthRedirectPath,
-    authCheckState
+    authCheckState,
+    logoutSucceed,
+    authStart,
+    authFail,
+    authSuccess,
+    checkAuthTimeout
 } from './auth';
