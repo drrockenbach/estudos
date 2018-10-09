@@ -1,5 +1,5 @@
 
-import { put } from 'redux-saga/effects';
+import { put, call } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 import * as actions from '../actions/index';
 import axios from '../../axios-orders';
@@ -10,10 +10,10 @@ import axios from '../../axios-orders';
 export function* logoutSaga(action) {
     // yield diz que é para esperar até que a ação termine para continuar.
 
-    yield localStorage.removeItem('token');
-    yield localStorage.removeItem('expirationDate');
-    yield localStorage.removeItem('userId');
-
+    yield call ([localStorage,"removeItem"], "token");
+    yield call ([localStorage,"removeItem"], "expirationDate");
+    yield call ([localStorage,"removeItem"], "userId");
+    
     // Faz o dispatch da action
     yield put(actions.logoutSucceed());
 };
