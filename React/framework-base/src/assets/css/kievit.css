@@ -1,0 +1,41 @@
+/*** REGULAR ***/
+@font-face {
+    font-family: 'Kievit';
+    src: url("../fonts/kievit/kievit-regular/kievit-regular.woff") format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Kievit';
+    src: url("../fonts/kievit/kievit-regular-italic/kievit-regular-italic.woff") format('woff');
+    font-weight: normal;
+    font-style: italic;
+}
+
+/*** BOLD ***/
+@font-face {
+    font-family: 'Kievit';
+    src: url("../fonts/kievit/kievit-bold/kievit-bold.woff") format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Kievit';
+    src: url("../fonts/kievit/kievit-bold-italic/kievit-bold-italic.woff") format('woff');
+    font-weight: bold;
+    font-style: italic;
+}
+
+/*** LIGHT ***/
+@font-face {
+    font-family: 'Kievit';
+    src: url("../fonts/kievit/kievit-light/kievit-light.woff") format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Kievit';
+    src: url("../fonts/kievit/kievit-light-italic/kievit-light-italic.woff") format('woff');
+    font-weight: 300;
+    font-style: italic;
+}
