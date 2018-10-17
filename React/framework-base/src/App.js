@@ -7,7 +7,7 @@ import Home from './containers/Home/Home';
 
 class App extends Component {
   render() {
-    const perfil = <Perfil title="Perfil" />
+    
     return (
       <MainWrapper>
         <Switch>

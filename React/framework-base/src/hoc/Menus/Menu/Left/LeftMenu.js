@@ -1,35 +1,40 @@
 
 import React, { Component } from 'react';
-import Generic from '../../../Generic/Generic';
+import GenericWithClass from '../../../Generic/GenericWithClass';
 import WithClass from '../../../WithClass/WithClass';
 import NavigationItem from '../../../../Component/Navigation/NavigationItem/NavigationItem';
 import FatherMenu from '../../../../Component/Navigation/FatherMenu/FatherMenu';
-import axios from 'axios';
+
 import { updateObject } from '../../../../shared/utility';
+
+import { connect } from 'react-redux';
+
+import * as actions from '../../../../store/actions/index';
 
 class LeftMenu extends Component {
 
     componentWillMount() {
-        const menus = localStorage.getItem("menus");
-        if (menus) {
-            this.setState({menus: JSON.parse(menus)});
-        } else {
-            console.log("menus antes da busca", this.state.menus);
-            axios.get("https://framework-base.firebaseio.com/menus.json")
-            .then(res => {
-                console.log("dados do firebase", res.data);
-                this.setState({menus: res.data});
-                localStorage.setItem("menus", JSON.stringify(this.state.menus));
-            })
-            .catch(err => {
-                console.log("erro ao buscar menus");
-            })
-        }
+        // const menus = localStorage.getItem("menus");
+        // if (menus) {
+        //     this.setState({menus: JSON.parse(menus)});
+        // } else {
+        //     console.log("menus antes da busca", this.state.menus);
+        //     axios.get("https://framework-base.firebaseio.com/menus.json")
+        //     .then(res => {
+        //         console.log("dados do firebase", res.data);
+        //         this.setState({menus: res.data});
+        //         localStorage.setItem("menus", JSON.stringify(this.state.menus));
+        //     })
+        //     .catch(err => {
+        //         console.log("erro ao buscar menus");
+        //     })
+        // }
+        this.props.onLeftMenuLoad();
     }
 
     // Diomar - Adicionar no redux e simular a busca de webservice, utilizando o firebase
-    state = {
-        menus: []
+    // state = {
+        // menus: []
         // Formato do menu
         // [{
         //         menu: {
@@ -80,19 +85,19 @@ class LeftMenu extends Component {
         //         }
         //     }
         // ]
-    };
+    // };
 
     clickMenuHandler = (itemMenu, event) => {
         event.preventDefault();
 
-        const indice = this.state.menus.lastIndexOf(itemMenu);
+        const indice = this.props.menus.lastIndexOf(itemMenu);
         const isOpen = !itemMenu.menu.isOpen;
         itemMenu.menu.isOpen = isOpen;
         
-        console.log("clickMenuHandler antes",this.state.menus);
+        console.log("clickMenuHandler antes",this.props.menus);
 
-        const menus = updateObject(this.state.menus, 
-            {[indice]: updateObject(this.state.menus[indice]), [indice]: itemMenu 
+        const menus = updateObject(this.props.menus, 
+            {[indice]: updateObject(this.props.menus[indice]), [indice]: itemMenu 
             }
         );
         
@@ -102,7 +107,7 @@ class LeftMenu extends Component {
 
     render() {
         return (
-            <Generic>
+            <GenericWithClass classes="leftmenu">
                 <ul className="nav nav-tabs nav-stacked">
                     {/* Diomar - Se estiver na página inicial, esse className deve ser true */}
                     {/* Tem que implementar a lógica para definir o menu que estará ativo - passar para NavigationItem a prop activeClass="active" */}
@@ -112,14 +117,26 @@ class LeftMenu extends Component {
                             <span className="text">Início</span>
                     </NavigationItem>
                     {
-                        this.state.menus.map(item => (
+                        this.props.menus.map(item => (
                             <FatherMenu key={item.menu.name} classes="dropdown" menu={item.menu} activeClass="" clicked={this.clickMenuHandler.bind(this, item)}/>
                         ))
                     }
                 </ul>
-            </Generic>
+            </GenericWithClass>
         );
     }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onLeftMenuLoad: () => dispatch(actions.loadLeftMenus())
+    };
 };
 
-export default WithClass(LeftMenu, "leftmenu");
+const mapStateToProps = state => {
+    return {
+        menus: state.leftMenu.menus
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LeftMenu);

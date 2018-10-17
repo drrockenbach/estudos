@@ -16,7 +16,7 @@ class MainWrapper extends Component {
                 </div>
               </label>
               <div className="pagetitle">
-                <h1>Titulo da Página</h1>
+                <h1>Título da Página</h1>
               </div>
             </div>
 
