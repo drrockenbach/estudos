@@ -1,11 +1,11 @@
 import React from 'react'
 import WithClass from '../../hoc/WithClass/WithClass';
-import logoAuttar from '../../assets/images/logo-auttar-branco.svg';
+import logo from '../../assets/icons/logo.ico';
 
 const Logo = () => {
   return (
     <a href='/'>
-      <img alt="Auttar" src={logoAuttar} />
+      <img alt="Logo" src={logo} />
     </a>
   )
 }
